@@ -17,10 +17,13 @@
     <div id="map"></div>
     <script>
         var photos = [
-            { title: 'Vale do anhangabaú, 1911', photoUrl: './photos/vale_do_anhangabau.jpg', location: { lat: -23.5467694, lng: -46.6376741 } },
-            { title: 'Largo São Bento', photoUrl: './photos/largo_de_sao_bento.jpg', location: { lat: -23.5440411, lng: -46.6341109 } },
-            { title: 'Rua General Carneiro', photoUrl: './photos/rua_general_carneiro.jpg', location: { lat: -23.548121, lng: -46.6338363 } },
-
+            { title: 'Vale do anhangabaú, 1911', photoUrl: './photos/vale_do_anhangabau.jpg', location: { lat: -23.5467694, lng: -46.6376741 }, fonte: 'https://capital.sp.gov.br/web/cultura/w/noticias/7555' },
+            { title: 'Largo São Bento', photoUrl: './photos/largo_de_sao_bento.jpg', location: { lat: -23.5440411, lng: -46.6341109 }, fonte: 'https://capital.sp.gov.br/web/cultura/w/noticias/7555' },
+            { title: 'Rua General Carneiro', photoUrl: './photos/rua_general_carneiro.jpg', location: { lat: -23.548121, lng: -46.6338363 }, fonte:'https://capital.sp.gov.br/web/cultura/w/noticias/7555' },
+            { title: 'Rua e largo São Bento', photoUrl: './photos/rua_e_largo_são_bento.jpg', location: { lat: -23.5440291, lng: -46.633826 }, fonte:'https://acervos.ims.com.br/portals/#/search?filtersStateId=8' },
+            { title: 'Igreja da ordem terceira do carmo', photoUrl: './photos/igreja_da_terceira_do_carmo.jpg', location: { lat: -23.5502604, lng: -46.6314825 }, fonte:'https://www.museudacidade.prefeitura.sp.gov.br/wp-content/uploads/2021/01/Pracas-e-Parques-de-Sao-Paulo_Vfinal.pdf' },
+            { title: 'Margem do rio Tamanduateí', photoUrl: './photos/rio_tamanduatei.jpg', location: { lat: -23.5475965, lng: -46.6280868 }, fonte:'https://capital.sp.gov.br/web/cultura/w/noticias/7555' },
+            { title: 'Praça do forró, 1966', photoUrl: './photos/praca_do_forro_1966.jpg', location: { lat: -23.4918539, lng: -46.445893 }, fonte:'https://sociedadedospoetasamigos.blogspot.com/2012/12/praca-do-forro-sao-miguel-paulista.html' },
         ]
 
 
@@ -74,7 +77,8 @@
                     position: photo.location,
                     map: map,
                     title: photo.title,
-                    gmpClickable: true
+                    gmpClickable: true,
+                    icon: './photos/camera_pin.png'
                 });
                 photoClicked = new google.maps.InfoWindow()
                 pin.addListener("click", ({ domEvent, latLng }) => {
@@ -84,7 +88,8 @@
                                             <a target="blank" href="${photo.photoUrl}">
                                                 <img widht="480px" height="320px" src="${photo.photoUrl}">
                                             </a><br> 
-                                            <a target="blank" href="https://www.google.com/maps?q&layer=c&cbll=${photo.location.lat},${photo.location.lng}">Ver no maps</a>`)
+                                            <a target="blank" href="https://www.google.com/maps?q&layer=c&cbll=${photo.location.lat},${photo.location.lng}">Ver no maps</a>
+                                            <a style="float: right" target="blank" href="${photo.fonte}">Fonte</a>`)
 
                 });
             });
