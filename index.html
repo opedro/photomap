@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Define o tamanho do mapa */
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        var photos = [
+            { title: 'Vale do anhangabaú, 1911', photoUrl: './photos/vale_do_anhangabau.jpg', location: { lat: -23.5467694, lng: -46.6376741 } },
+            { title: 'Largo São Bento', photoUrl: './photos/largo_de_sao_bento.jpg', location: { lat: -23.5440411, lng: -46.6341109 } },
+            { title: 'Rua General Carneiro', photoUrl: './photos/rua_general_carneiro.jpg', location: { lat: -23.548121, lng: -46.6338363 } },
+
+        ]
+
+
+        function initMap() {
+
+            center = { lat: -23.550520, lng: -46.633308 }
+
+
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 12,
+                center: center,
+                styles: [
+                    {
+                        "featureType": "administrative",
+                        "elementType": "geometry",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "poi",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "road",
+                        "elementType": "labels.icon",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    },
+                    {
+                        "featureType": "transit",
+                        "stylers": [
+                            {
+                                "visibility": "off"
+                            }
+                        ]
+                    }
+                ]
+            });
+            photos.forEach((photo, i) => {
+                let pin = new google.maps.Marker({
+                    position: photo.location,
+                    map: map,
+                    title: photo.title,
+                    gmpClickable: true
+                });
+                photoClicked = new google.maps.InfoWindow()
+                pin.addListener("click", ({ domEvent, latLng }) => {
+                    photoClicked.setPosition(photo.location);
+                    photoClicked.open(map)
+                    photoClicked.setContent(`<h2 style="margin-top:-4px">${photo.title}</h2>
+                                            <a target="blank" href="${photo.photoUrl}">
+                                                <img widht="480px" height="320px" src="${photo.photoUrl}">
+                                            </a><br> 
+                                            <a target="blank" href="https://www.google.com/maps?q&layer=c&cbll=${photo.location.lat},${photo.location.lng}">Ver no maps</a>`)
+
+                });
+            });
+
+            google.maps.event.addListener(map, "click", function (event) {
+                photoClicked.close();
+            });
+
+
+
+
+
+
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJ7wu0tBhnkBIeVWTMHlmMOekpvB61G4w&callback=initMap"
+        async defer>
+        </script>
+</body>
+
+</html>
